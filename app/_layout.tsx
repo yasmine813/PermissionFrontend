@@ -1,24 +1,38 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+import { Stack } from "expo-router";
+import { useEffect } from "react";
+import { userApi } from "../src/services/api";
+import { useAuthStore } from "../src/store/authStore";
+import { registerForPushNotifications } from "../src/utils/notifications";
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const { user, accessToken } = useAuthStore();
+
+  useEffect(() => {
+    if (user && accessToken) {
+      registerForPushNotifications().then((token) => {
+        if (token) {
+          userApi.savePushToken(token, accessToken).catch(() => {});
+        }
+      });
+    }
+  }, [user]);
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        contentStyle: { backgroundColor: "#f7f8fc" },
+      }}
+    >
+      <Stack.Screen name="index" />
+      <Stack.Screen name="login" />
+      <Stack.Screen name="register" />
+      <Stack.Screen name="(instructor)" />
+      <Stack.Screen name="(student)" />
+      <Stack.Screen name="personal" />
+      <Stack.Screen name="security" />
+
+      
+    </Stack>
   );
 }

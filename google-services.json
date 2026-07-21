@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "744405516876",
+    "project_id": "rokhsa-226a2",
+    "storage_bucket": "rokhsa-226a2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:744405516876:android:2ae3ea8c8cd36084696ae9",
+        "android_client_info": {
+          "package_name": "tn.rokhsa.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkrJzMnPpwTxAJVgYFYvZecUKL75sQ-FY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
